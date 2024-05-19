@@ -12,7 +12,6 @@ private:
 	bool over = false;
 	size_t number;
 public:
-	Queue() : elements(nullptr), capacity(0), number(0) {};
 	Queue(size_t pSize) : elements(new T[pSize]), capacity(pSize), number(0) {};
 	~Queue();
 
