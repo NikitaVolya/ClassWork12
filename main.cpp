@@ -7,8 +7,8 @@ class Queue
 private:
 	T* elements;
 	size_t capacity;
-	size_t first = 3;
-	size_t next = 3;
+	size_t first = 0;
+	size_t next = 0;
 	bool over = false;
 	size_t number;
 public:
@@ -16,7 +16,8 @@ public:
 	Queue(size_t pSize) : elements(new T[pSize]), capacity(pSize), number(0) {};
 	~Queue();
 
-	T& top() { return elements[first]; }
+	T& front() { return elements[first]; }
+	T& back() { return elements[next - 1 < 0 ? capacity - 1 : next - 1]; }
 
 	void pop();
 	void push(const T& pValue);
@@ -70,8 +71,7 @@ std::ostream& Queue<T>::debugPrint(std::ostream& out) const
 {
 	for (int i = 0; i < capacity; i++)
 	{
-		if (i)
-		out << elements[i];
+		out << elements[i] << ", ";
 	}
 	return out;
 }
@@ -104,8 +104,12 @@ int main()
 	testQ.push(9);
 	testQ.push(10);
 	testQ.pop();
+	testQ.pop();
 	testQ.push(11);
-	std::cout << testQ << std::endl;
+	testQ.debugPrint(std::cout);
+	std::cout << std::endl << testQ << std::endl;
+	std::cout << testQ.front() << std::endl;
+	std::cout << testQ.back() << std::endl;
 
 	return 0;
 }
